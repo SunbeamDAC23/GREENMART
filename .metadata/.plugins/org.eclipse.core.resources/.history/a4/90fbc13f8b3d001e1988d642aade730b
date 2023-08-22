@@ -1,0 +1,11 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "order_tb")
+public class Order extends BaseEntity{
+	
+
+}

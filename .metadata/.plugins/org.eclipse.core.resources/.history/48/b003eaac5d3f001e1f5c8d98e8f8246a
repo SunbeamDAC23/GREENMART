@@ -1,0 +1,37 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.dto.CategoryDTO;
+import com.app.repository.CategoryRepository;
+
+public class CategoryServiceImpl implements CategoryService {
+
+	private CategoryRepository catRepo;
+	
+	
+	@Override
+	public List<CategoryDTO> getAllCategories() {
+		
+		return null;
+	}
+
+	@Override
+	public CategoryDTO addNewCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoryDTO updateCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

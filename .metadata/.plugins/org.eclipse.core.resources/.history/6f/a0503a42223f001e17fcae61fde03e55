@@ -1,0 +1,18 @@
+package com.app.dto;
+
+public class AddAddressDTO {
+	
+	private Long id;
+	
+	private String line1;
+	
+	private String line2;
+	
+	private String city;
+	
+	private String State;
+	
+	private int pincode;
+	
+
+}

@@ -1,0 +1,67 @@
+package com.app.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.customExceptions.ResourceNotFoundException;
+import com.app.dto.AddUserDTO;
+import com.app.dto.UserResponseDTO;
+import com.app.pojos.User;
+import com.app.repository.UserRepository;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public UserResponseDTO addNewUser(AddUserDTO dto) {
+		
+		User userEntity=mapper.map(dto, User.class);
+		User persistentUser = userRepo.save(userEntity);
+		
+		
+		return mapper.map(persistentUser, UserResponseDTO.class);
+	}
+
+	@Override
+	public UserResponseDTO updateUser(Long uid, AddUserDTO dto) {
+		
+		User userEntity = userRepo.findById(uid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid User ID"));
+		mapper.map(dto, userEntity);
+		userEntity.setId(uid);
+		
+				return mapper.map(userEntity, UserResponseDTO.class);
+	}
+
+	@Override
+	public List<UserResponseDTO> getAllUsers() {
+		
+		List<User> usersList = userRepo.findAll();
+		
+		
+		
+		return usersList.stream()
+				.map(user -> mapper.map(user, UserResponseDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public UserResponseDTO removeUser(Long id) {
+		User toDelUser=userRepo.findById(id);
+		
+		return null;
+	}
+
+}

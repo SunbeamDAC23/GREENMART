@@ -1,0 +1,9 @@
+package com.app.service;
+
+import com.app.pojos.Category;
+
+public interface CategoryService {
+	
+	
+
+}

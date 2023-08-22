@@ -1,0 +1,60 @@
+package com.app.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.customExceptions.ResourceNotFoundException;
+import com.app.pojos.Category;
+import com.app.repository.CategoryRepository;
+
+@Service
+@Transactional
+public class CategoryServiceImpl implements CategoryService {
+	
+	@Autowired
+	private CategoryRepository catRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	@Override
+	public List<Category> getAllCategories() {
+		
+		List<Category> categories = catRepo.findAll();
+		
+		
+		
+		return categories;
+		
+	}
+
+	@Override
+	public Category addNewCategory(Category c) {
+		
+		return catRepo.save(c);
+		
+		
+	}
+
+	@Override
+	public Category updateCategory(Long id , Category c) {
+		
+	return catRepo.save(c);
+		
+		
+	}
+
+	@Override
+	public String deleteCategory(Long id) {
+		
+		catRepo.deleteById(id);
+		
+		return "Category Deleted..!!";
+	}
+
+}

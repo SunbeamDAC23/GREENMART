@@ -1,0 +1,19 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.pojos.Address;
+
+public interface AddressService {
+	
+	
+	List<Address> getUserAddress(Long uid);
+	
+	Address addNewAddress();
+	
+	Address updateAddress(Address address);
+	
+	
+	
+
+}

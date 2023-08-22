@@ -1,0 +1,49 @@
+package com.app.service;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.dto.CategoryDTO;
+import com.app.pojos.Category;
+import com.app.repository.CategoryRepository;
+
+public class CategoryServiceImpl implements CategoryService {
+	
+	@Autowired
+	private CategoryRepository catRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	@Override
+	public List<CategoryDTO> getAllCategories() {
+		
+		List<Category> categories = catRepo.findAll();
+		
+		categories.stream().map(c->mapper.map(c, CategoryDTO.class))
+		
+		
+		return null;
+	}
+
+	@Override
+	public CategoryDTO addNewCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoryDTO updateCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteCategory(CategoryDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

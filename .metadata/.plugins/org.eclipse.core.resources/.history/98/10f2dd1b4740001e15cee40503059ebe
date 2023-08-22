@@ -1,0 +1,15 @@
+package com.app.dto;
+
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+public class CategoryDTO {
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long id;
+	
+	@NotBlank
+	private String cname;
+
+}

@@ -1,0 +1,26 @@
+package com.app.dto;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+
+@ToString
+
+public class UserResponseDTO {
+	
+	private Long id;
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private String email;
+	
+	private long mobile;
+	
+
+}

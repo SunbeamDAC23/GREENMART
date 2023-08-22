@@ -1,0 +1,10 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "category_tb")
+public class Category extends BaseEntity {
+
+}

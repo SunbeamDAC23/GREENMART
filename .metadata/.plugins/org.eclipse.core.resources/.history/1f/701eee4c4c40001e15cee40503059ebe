@@ -1,0 +1,19 @@
+package com.app.dto;
+
+import javax.persistence.AccessType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+public class ProductDTO {
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long id;
+	
+	private String pname;
+	
+	private String pdesc;
+	
+	
+
+}

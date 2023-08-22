@@ -1,0 +1,17 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user_tb")
+public class User extends BaseEntity{
+	
+	private String firstName;
+	private String lastName;
+	
+	
+	
+	
+
+}

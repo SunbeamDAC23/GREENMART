@@ -1,0 +1,15 @@
+package com.app.service;
+
+import com.app.dto.AddUserDTO;
+import com.app.dto.UserResponseDTO;
+
+public interface UserService {
+	
+	
+	UserResponseDTO addNewUser(AddUserDTO dto);
+	
+	UserResponseDTO updateUser(Long uid , AddUserDTO dto);
+	
+	
+
+}

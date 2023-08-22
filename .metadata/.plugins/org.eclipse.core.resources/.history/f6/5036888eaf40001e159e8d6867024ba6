@@ -1,0 +1,44 @@
+package com.app.service;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.dto.OrderItemsDTO;
+import com.app.pojos.Order;
+import com.app.repository.OrderRepository;
+import com.app.repository.ProductLineRepository;
+
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	private OrderRepository orderRepo;
+	
+	@Autowired
+	private ProductLineRepository lineRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	
+	@Override
+	public OrderItemsDTO placeNewOrder(OrderItemsDTO dto) {
+		
+		Order newOrder = mapper.map(dto, Order.class);
+		
+		orderRepo.save(newOrder);
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public OrderItemsDTO deleteOrder(Long id) {
+		
+		return null;
+	}
+
+}

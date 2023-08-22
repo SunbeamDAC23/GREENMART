@@ -1,0 +1,22 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.dto.AddressDTO;
+import com.app.pojos.Address;
+
+public interface AddressService {
+	
+	
+	List<AddressDTO> getUserAddress(Long uid);
+	
+	Address addNewAddress(AddressDTO address);
+	
+	Address updateAddress(Long id , AddressDTO address);
+	
+	Address deleteAddress(Long uid,Long id);
+	
+	
+	
+
+}

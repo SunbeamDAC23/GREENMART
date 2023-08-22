@@ -1,0 +1,5 @@
+package com.app.customExceptions;
+
+public class ResourceNotFoundException extends RuntimeException{
+
+}

@@ -1,0 +1,10 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+public class ProductLine extends BaseEntity{
+	
+
+}

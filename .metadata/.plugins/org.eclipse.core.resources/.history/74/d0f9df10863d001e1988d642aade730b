@@ -1,0 +1,9 @@
+package com.app.pojos;
+
+
+public class Address extends BaseEntity{
+	
+	private String line1;
+	
+
+}

@@ -1,0 +1,78 @@
+package com.app.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.customExceptions.ResourceNotFoundException;
+import com.app.dto.ProductDTO;
+import com.app.pojos.Category;
+import com.app.pojos.Product;
+import com.app.repository.CategoryRepository;
+import com.app.repository.ProductRepository;
+
+public class ProductServiceImpl implements ProductService {
+	
+	@Autowired
+	private ProductRepository productRepo;
+	
+	@Autowired
+	private CategoryRepository catRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public List<ProductDTO> getAllProducts() {
+		List<Product> products=productRepo.findAll();
+		
+		
+		return products.stream()
+				.map(p->mapper.map(p, ProductDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public ProductDTO addNewProduct(ProductDTO dto) {
+		
+		Category c = catRepo.findById(dto.getCategory_id())
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Category ID"));
+		Product newProduct=mapper.map(dto, Product.class);
+		c.addProduct(newProduct);
+		productRepo.save(newProduct);
+		return mapper.map(newProduct, ProductDTO.class);
+	}
+
+	@Override
+	public String deleteProduct(Long cid,Long pid) {
+		Product toDelete = productRepo.findById(pid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Product"));
+		Category c = catRepo.findById(cid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Category ID"));
+		c.removeProduct(toDelete);
+		productRepo.deleteById(pid);
+		return "Product deleted";
+	}
+
+	@Override
+	public ProductDTO updateProduct(Long pid, ProductDTO dto) {
+		Category c = catRepo.findById(dto.getCategory_id())
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Category ID"));
+	
+		
+		Product toUpdate = productRepo.findById(pid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Product"));
+		
+		c.removeProduct(toUpdate);
+		
+		mapper.map(dto, toUpdate);
+		
+		c.addProduct(toUpdate);
+		
+		
+		return mapper.map(toUpdate, ProductDTO.class);
+	}
+
+}

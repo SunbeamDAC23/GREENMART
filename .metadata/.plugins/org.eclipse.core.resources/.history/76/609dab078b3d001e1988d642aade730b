@@ -1,0 +1,9 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Order extends BaseEntity{
+	
+
+}

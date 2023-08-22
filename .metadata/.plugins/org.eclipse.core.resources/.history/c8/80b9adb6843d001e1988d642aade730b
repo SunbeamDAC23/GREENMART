@@ -1,0 +1,13 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Product extends BaseEntity{
+	
+	private String pname;
+	private String pdesc;
+	private double price;
+	private int catId;
+
+}

@@ -1,0 +1,18 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.pojos.Product;
+import com.app.pojos.User;
+
+public interface UserService {
+	
+	List<User> getAllProducts();
+	
+	Product addNewProduct(User user);
+	
+	String deleteProduct(Long pid);
+	
+	Product updateProduct(Long pid, Product product);
+
+}

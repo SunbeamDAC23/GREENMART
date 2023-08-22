@@ -1,0 +1,55 @@
+package com.app.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.dto.ProductDTO;
+import com.app.pojos.Product;
+import com.app.repository.CategoryRepository;
+import com.app.repository.ProductRepository;
+
+public class ProductServiceImpl implements ProductService {
+	
+	@Autowired
+	private ProductRepository productRepo;
+	
+	@Autowired
+	private CategoryRepository catRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public List<ProductDTO> getAllProducts() {
+		List<Product> products=productRepo.findAll();
+		
+		
+		return products.stream()
+				.map(p->mapper.map(p, ProductDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public ProductDTO addNewProduct(ProductDTO dto) {
+		
+		Category c = 
+		
+		return null;
+	}
+
+	@Override
+	public String deleteProduct(Long pid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductDTO updateProduct(Long pid, ProductDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

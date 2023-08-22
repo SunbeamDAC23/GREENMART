@@ -1,0 +1,27 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.dto.AddUserDTO;
+import com.app.dto.UserResponseDTO;
+
+public class UserServiceImpl implements UserService{
+
+	@Override
+	public UserResponseDTO addNewUser(AddUserDTO dto) {
+		
+		return null;
+	}
+
+	@Override
+	public UserResponseDTO updateUser(Long uid, AddUserDTO dto) {
+				return null;
+	}
+
+	@Override
+	public List<UserResponseDTO> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

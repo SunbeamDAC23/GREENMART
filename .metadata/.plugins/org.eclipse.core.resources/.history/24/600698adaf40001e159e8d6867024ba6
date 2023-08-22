@@ -1,0 +1,32 @@
+package com.app.dto;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+public class OrderItemsDTO {
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long id;
+	
+	private Long uid;
+	
+	private List<ProductLineDTO> items;
+	
+	private LocalDate odate;
+	
+	private double orderTotal;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

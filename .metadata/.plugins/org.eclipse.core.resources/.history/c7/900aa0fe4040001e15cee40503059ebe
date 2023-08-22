@@ -1,0 +1,39 @@
+package com.app.pojos;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "product_tb")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Product extends BaseEntity{
+	
+	@Column(length = 20)
+	private String pname;
+	@Column(length = 150)
+	private String pdesc;	
+	private double price;
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	@Column(name = "avl_qty")
+	private int avlQty;
+
+}

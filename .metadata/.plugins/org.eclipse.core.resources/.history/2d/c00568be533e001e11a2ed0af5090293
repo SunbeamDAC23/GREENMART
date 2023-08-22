@@ -1,0 +1,42 @@
+package com.app.service;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.dto.AddUserDTO;
+import com.app.dto.UserResponseDTO;
+import com.app.pojos.User;
+import com.app.repository.UserRepository;
+
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public UserResponseDTO addNewUser(AddUserDTO dto) {
+		
+		User userEntity=mapper.map(dto, User.class);
+		User persistentUser = userRepo.save(userEntity);
+		
+		
+		return mapper.map(persistentUser, UserResponseDTO.class);
+	}
+
+	@Override
+	public UserResponseDTO updateUser(Long uid, AddUserDTO dto) {
+				return null;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		
+		return userRepo.findAll();
+	}
+
+}

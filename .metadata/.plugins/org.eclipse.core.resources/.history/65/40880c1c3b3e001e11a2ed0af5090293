@@ -1,0 +1,57 @@
+package com.app.pojos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "user_tb")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "password")
+public class User extends BaseEntity{
+	
+	@Column(length = 20)
+	private String firstName;
+	@Column(length = 20)
+	private String lastName;
+	@Column(length = 20,nullable = false)
+	private String email;
+	@Column(length = 20,nullable = false)
+	private String password;
+	
+	private long mobile;
+	
+
+	@OneToMany(mappedBy = "user",
+			cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Address> addresses = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user",
+			cascade = CascadeType.ALL , orphanRemoval = true)
+	private List<Order> orders = new ArrayList<>();
+	
+	public void addAddress(Address a) {
+		addresses.add(a);
+		a.setAddresses(this);
+	
+	}
+	public void removeEmployee(Address a) {
+		
+	}
+
+}

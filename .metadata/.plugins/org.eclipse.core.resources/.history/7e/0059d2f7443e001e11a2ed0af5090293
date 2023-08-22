@@ -1,0 +1,64 @@
+package com.app.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.customExceptions.ResourceNotFoundException;
+import com.app.pojos.Address;
+import com.app.pojos.Product;
+import com.app.pojos.User;
+import com.app.repository.AddressRepository;
+import com.app.repository.UserRepository;
+
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepository userDao;
+	
+	@Autowired
+	private AddressRepository adrRepo;
+
+	@Override
+	public List<User> getAllUsers() {
+		
+		return userDao.findAll();
+	}
+
+	@Override
+	public User addNewUser(User user) {
+		userDao.save(user);
+		return null;
+	}
+
+	@Override
+	public String deleteUser(Long uid){
+		userDao.deleteById(uid);
+		Optional<Address> optAddress = adrRepo.findById(uid);
+		if(optAddress.isPresent())
+			adrRepo.delete(optAddress.get());
+		User u = userDao.findById(uid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid User ID"));
+		userDao.delete(u);
+		return "User Records Deleted";
+	}
+
+	@Override
+	public User updateUser(Long uid, User user) {
+		User u = userDao.findById(uid)
+				.orElseThrow(()->new ResourceNotFoundException("Invalid User ID"));
+		u.setId(uid);
+		 
+		return null;
+	}
+
+}
+
+		

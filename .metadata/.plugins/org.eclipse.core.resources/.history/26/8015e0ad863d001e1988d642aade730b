@@ -1,0 +1,21 @@
+package com.app.pojos;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "address_tb")
+public class Address extends BaseEntity{
+	
+	private String line1;
+	
+	private String line2;
+	
+	private String city;
+	
+	private String state;
+	
+	private int pinCode;
+	
+
+}

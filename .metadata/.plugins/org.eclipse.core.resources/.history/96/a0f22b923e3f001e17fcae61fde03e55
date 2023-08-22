@@ -1,0 +1,87 @@
+package com.app.service;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.customExceptions.ResourceNotFoundException;
+import com.app.dto.AddressDTO;
+import com.app.pojos.Address;
+import com.app.pojos.User;
+import com.app.repository.AddressRepository;
+import com.app.repository.UserRepository;
+
+@Service
+@Transactional
+public class AddressServiceImpl implements AddressService {
+
+	@Autowired
+	private AddressRepository addressRepo;
+
+	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public List<AddressDTO> getUserAddress(Long uid) {
+		
+		List<Address> list = addressRepo.findByUserId(uid);
+		
+		list.stream().map((a)->{mapper.map(a, AddressDTO.class)});
+
+		return list;
+	}
+
+	@Override
+	public Address addNewAddress(AddressDTO address) {
+
+		User user = userRepo.findById(address.getUid())
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid User id"));
+
+		Address userAddress = mapper.map(address, Address.class);
+
+		user.addAddress(userAddress);
+		addressRepo.save(userAddress);
+		return userAddress;
+
+	}
+
+	@Override
+	public Address updateAddress(Long id, AddressDTO address) {
+
+		User user = userRepo.findById(address.getUid())
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid User id"));
+
+		Address updateAddress = addressRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Address ID"));
+		// remove old address
+		user.removeAddress(updateAddress);
+
+		mapper.map(address, updateAddress);
+
+		updateAddress.setId(id);
+
+		// add new Address
+		user.addAddress(updateAddress);
+
+		return updateAddress;
+	}
+
+	@Override
+	public String deleteAddress(Long uid , Long id) {
+		
+		User user = userRepo.findById(uid)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid User id"));
+
+		user.removeAddress(addressRepo.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("Invalid Address ID")));
+		addressRepo.deleteById(id);
+		return "Address Deleted";
+	}
+
+}

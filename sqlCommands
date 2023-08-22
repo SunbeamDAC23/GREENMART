@@ -1,0 +1,29 @@
+insert into user_tb values(default,'aj@gmail.com','Abhi','Jain',8888914347,'aj123');
+
+
+insert into user_tb values(default,'ak@gmail.com','Ak','Jain',8888914347,'ak123');
+
+
+insert into user_tb values(default,'sa@gmail.com','Sagar','Uphade',8888310043,'sa123');
+
+
+insert into address_tb values(default,'pune','c303 dynamaic linea','hadapsar',411028,'Maharashtra',1);
+
+
+insert into address_tb values(default,'selu','1091 Vivekanad nagar selu','Selu',431501,'Maharashtra',2);
+
+insert into category_tb values(default,'fruits');
+
+insert into category_tb values(default,'leafy green');
+
+insert into product_tb values(default,'50.00','Apples Imported','Apple',100.00,1);
+
+
+insert into product_tb values(default,'100.00','Oranges Local','Orange',78.00,1);
+
+insert into product_tb values(default,'25.50','Spinach is healthy','Spinach',18.00,2);
+
+
+insert into product_tb values(default,'15.00','Silverbeet is good','Silverbeet',23.00,2);
+
+

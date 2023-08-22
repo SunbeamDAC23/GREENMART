@@ -1,0 +1,22 @@
+package com.app.pojos;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "product_tb")
+public class Product extends BaseEntity{
+	
+	@Column(length = 20)
+	private String pname;
+	@Column(length = 80)
+	private String pdesc;
+	
+	private double price;
+	@Column(name = "category_id")
+	private int categoryId;
+	
+	private int avlQty;
+
+}

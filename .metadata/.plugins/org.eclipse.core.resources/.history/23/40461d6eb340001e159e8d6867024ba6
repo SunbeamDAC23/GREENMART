@@ -1,0 +1,31 @@
+package com.app.dto;
+
+public class ProductLineDTO {
+	
+	
+	private Long oid;
+	
+	private Long pid;
+	
+	private int qty;
+
+	public Long getPid() {
+		return pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	
+	
+	
+
+}
