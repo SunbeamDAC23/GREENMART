@@ -6,8 +6,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,21 +25,35 @@ public class Category extends BaseEntity {
 	@Column(length = 20)
 	private String cname;
 	
-	@OneToMany(mappedBy = "category", 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category", 
 			cascade = CascadeType.ALL, 
 			orphanRemoval = true)
 	private List<Product> products = new ArrayList<>();
 	
+	@Column
+	private String imagePath;
 	
-	
-	
-	public Category(String cname, List<Product> products) {
-		
+
+	public Category(String cname, List<Product> products, String imagePath) {
 		this.cname = cname;
 		this.products = products;
+		this.imagePath = imagePath;
 	}
-	
-	
+
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
 
 	public Category() {
 		
@@ -61,7 +78,7 @@ public class Category extends BaseEntity {
 	}
 	@Override
 	public String toString() {
-		return "Category [cname=" + cname + ", products=" + products + "]";
+		return "Category [cname=" + cname + ", products=" + products + "Image"+imagePath+"]";
 	}
 	public void addProduct(Product p) {
 		products.add(p);

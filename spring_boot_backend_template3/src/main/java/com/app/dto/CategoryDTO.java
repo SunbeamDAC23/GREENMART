@@ -11,6 +11,19 @@ public class CategoryDTO {
 	
 	@NotBlank
 	private String cname;
+	
+	private String imagePath;
+	
+	
+	
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	public Long getId() {
 		return id;
@@ -30,7 +43,7 @@ public class CategoryDTO {
 
 	@Override
 	public String toString() {
-		return "CategoryDTO [id=" + id + ", cname=" + cname + "]";
+		return "CategoryDTO [id=" + id + ", cname=" + cname + "image="+imagePath+"]";
 	}
 	
 	

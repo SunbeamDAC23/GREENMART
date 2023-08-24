@@ -39,20 +39,20 @@ public class AddressController {
 	}
 	
 	
-	@PostMapping
+	@PostMapping(value = "/newAddress")
 	public ResponseEntity<?> addUserAddress(@RequestBody AddressDTO address)
 	{
 		System.out.println(address.toString());
 		return ResponseEntity.status(HttpStatus.CREATED).body(addressService.addNewAddress(address));
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<?> updateAddress(@PathVariable Long id , @RequestBody AddressDTO address)
 	{
 		return  ResponseEntity.status(HttpStatus.CREATED).body(addressService.updateAddress(id, address));
 	}
 	
-	@DeleteMapping("/{uid}/{id}")
+	@DeleteMapping("delete/{uid}/{id}")
 	public String deleteAddress(@PathVariable Long id , @PathVariable Long uid)
 	{
 		return addressService.deleteAddress(uid, id);

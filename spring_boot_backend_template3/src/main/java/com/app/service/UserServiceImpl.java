@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.customExceptions.ResourceNotFoundException;
 import com.app.dto.AddUserDTO;
+import com.app.dto.AuthRequest;
 import com.app.dto.UserResponseDTO;
 import com.app.pojos.User;
 import com.app.repository.UserRepository;
@@ -64,6 +66,15 @@ public class UserServiceImpl implements UserService{
 		userRepo.deleteById(id);
 		
 		return mapper.map(toDelUser, UserResponseDTO.class);
+	}
+
+	@Override
+	public UserResponseDTO userAuthentication(AuthRequest request) {
+		User user=userRepo
+				.findByEmailAndPassword(request.getEmail(),request.getPassword())
+				.orElseThrow(()->new ResourceNotFoundException("Invalid Credentials"));
+		
+		return mapper.map(user, UserResponseDTO.class);
 	}
 
 }

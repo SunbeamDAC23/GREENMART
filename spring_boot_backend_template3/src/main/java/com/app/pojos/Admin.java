@@ -14,10 +14,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "admin_tb")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @ToString(exclude = "password")
 public class Admin extends BaseEntity{
 	
@@ -31,6 +28,54 @@ public class Admin extends BaseEntity{
 	private String password;
 	
 	private long mobile;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public long getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(long mobile) {
+		this.mobile = mobile;
+	}
+
+	@Override
+	public String toString() {
+		return "Admin [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+				+ password + ", mobile=" + mobile + "]";
+	}
+	
+	
 	
 	
 	

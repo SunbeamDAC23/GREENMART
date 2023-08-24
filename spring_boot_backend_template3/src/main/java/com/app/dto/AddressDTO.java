@@ -2,6 +2,7 @@ package com.app.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -81,7 +82,7 @@ public class AddressDTO {
 
 	@Override
 	public String toString() {
-		return "AddressDTO [id=" + id + ", line1=" + line1 + ", line2=" + line2 + ", city=" + city + ", State=" + State
+		return "Address [id=" + id + ", line1=" + line1 + ", line2=" + line2 + ", city=" + city + ", State=" + State
 				+ ", pincode=" + pincode + ", uid=" + uid + "]";
 	}
 	

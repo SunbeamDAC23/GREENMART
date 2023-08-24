@@ -1,6 +1,9 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.CategoryDTO;
 import com.app.pojos.Category;
@@ -13,7 +16,10 @@ public interface CategoryService {
 	
 	CategoryDTO updateCategory(Long id, CategoryDTO dto);
 	
-	String deleteCategory(Long id);
+	String uploadImage(Long id, MultipartFile image) throws IOException;
+	
+	byte[] downloadImage(Long id) throws IOException;
+
 	
 	
 	

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AddUserDTO;
+import com.app.dto.AuthRequest;
 import com.app.dto.UserResponseDTO;
 import com.app.pojos.User;
 import com.app.service.UserService;
@@ -65,6 +66,14 @@ public class UserController {
 		 
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.removeUser(id));
+	}
+	
+	@PostMapping(value = "/authenticate")
+	public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest request)
+	{
+		UserResponseDTO userDto=userService.userAuthentication(request);
+		return ResponseEntity.ok(userDto);
+		
 	}
 	
 	

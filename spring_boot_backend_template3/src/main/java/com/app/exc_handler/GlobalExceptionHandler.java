@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.app.customExceptions.ApiException;
 import com.app.customExceptions.ResourceNotFoundException;
 
 @RestControllerAdvice
@@ -19,4 +20,9 @@ public class GlobalExceptionHandler {
 				body("Resource Not Found");
 	}
 	
+	@ExceptionHandler(ApiException.class)
+	public ResponseEntity<?> handleApiException(ApiException e)
+	{
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Something Went Wrong");
+	}
 }

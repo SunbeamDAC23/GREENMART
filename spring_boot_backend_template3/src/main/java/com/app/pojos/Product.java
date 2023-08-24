@@ -25,20 +25,32 @@ public class Product extends BaseEntity{
 	private String pdesc;	
 	private double price;
 	
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
 	@Column(name = "avl_qty")
 	private double avlQty;
-
-	public Product(String pname, String pdesc, double price, Category category, double avlQty) {
+	
+	@Column
+	private String imagePath;
+	
+	public Product(String pname, String pdesc, double price, Category category, double avlQty, String imagePath) {
 		
 		this.pname = pname;
 		this.pdesc = pdesc;
 		this.price = price;
 		this.category = category;
 		this.avlQty = avlQty;
+		this.imagePath = imagePath;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public Product() {
@@ -47,8 +59,7 @@ public class Product extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "Product [pname=" + pname + ", pdesc=" + pdesc + ", price=" + price + ", category=" + category
-				+ ", avlQty=" + avlQty + "]";
+		return "Product [pname=" + pname + ", pdesc=" + pdesc + ", price=" + price + ", avlQty=" + avlQty +" Image"+imagePath+"]";
 	}
 
 	public String getPname() {

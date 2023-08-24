@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +21,12 @@ public class ProductLine extends BaseEntity{
 	
 	@Column
 	private double qty;
-	
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//MERGE : NEW n INTERESTING !!!!!
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	private Order order;
 	
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)//MERGE : NEW n INTERESTING !!!!!
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
@@ -71,7 +73,7 @@ public class ProductLine extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "ProductLine [qty=" + qty + ", order=" + order + ", product=" + product + "]";
+		return "ProductLine [qty=" + qty + ", product=" + product + "]";
 	}
 	
 	

@@ -33,11 +33,11 @@ public class User extends BaseEntity{
 	private long mobile;
 	
 	@OneToMany(mappedBy = "user",
-			cascade = CascadeType.ALL,orphanRemoval = true)
+			cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "user",
-			cascade = CascadeType.ALL , orphanRemoval = true)
+			cascade = CascadeType.ALL , orphanRemoval = true,fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();
 	
 	
@@ -130,4 +130,11 @@ public class User extends BaseEntity{
 		
 	}
 
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
+				+ ", mobile=" + mobile + "]";
+	}
+		
+	
 }

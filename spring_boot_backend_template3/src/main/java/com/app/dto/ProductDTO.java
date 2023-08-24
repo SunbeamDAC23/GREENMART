@@ -20,7 +20,7 @@ public class ProductDTO {
 	
 	private Long category_id;
 	
-	
+	private String imagePath;
 	
 	public Long getCategory_id() {
 		return category_id;
@@ -28,6 +28,15 @@ public class ProductDTO {
 
 	public void setCategory_id(Long category_id) {
 		this.category_id = category_id;
+	}
+	
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public Long getId() {
@@ -73,7 +82,7 @@ public class ProductDTO {
 	@Override
 	public String toString() {
 		return "ProductDTO [id=" + id + ", pname=" + pname + ", pdesc=" + pdesc + ", price=" + price + ", avlQty="
-				+ avlQty + "]";
+				+ avlQty + "image =" + imagePath+ "]";
 	}
 	
 	
