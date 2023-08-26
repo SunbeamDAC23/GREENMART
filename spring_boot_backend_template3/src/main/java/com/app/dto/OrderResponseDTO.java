@@ -12,7 +12,7 @@ public class OrderResponseDTO {
 	
 	private List<ProductLine> productLineItems;
 	
-	private double orderTotal;
+	 private double orderTotal;
 	
 	private String status;
 	
