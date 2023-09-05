@@ -1,58 +1,100 @@
-import React, { useState } from "react";
-// import ReactDOM from "react-dom";
+import React from "react";
+import { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Nav from './Nav'
-import imag from '../images/cabbage.jpg'
-import tomato from '../images/tomato.jpg'
-import spin from '../images/spinach.webp'
+import { useNavigate } from "react-router-dom";
+import Dashboard1 from "./Dashboard1";
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-
+import { loadCat } from "../Services/category";
+import '../../node_modules/bootstrap/js/dist/dropdown.js'
+import { loadBycat } from "../Services/products";
+import ProductItem from "./Product";
 
 function SearchPage() {
+  const [toggle, setToggle] = useState(true)
+  const [category, setcategory] = useState([])
+  const [products, setproducts] = useState([])
+
+ const navigate=useNavigate()
+
+  useEffect(() => {
+    showCategory()
+  }, []
+  )
+  const showCategory = async (Id) => {
+    debugger
+    const response = await loadCat()
+    if (response != null) {
+      setcategory(response)
+    } else {
+      console.log("Something went wrong")
+    }
+
+  }
+
+const back=()=>{
+  setToggle(true)
+  //navigate('/SearchPage')
+}
+
+
+  const showProducts = async (Id) => {
+    debugger
+    setToggle(!toggle)
+    const response = await loadBycat(Id)
+    if (response != null) {
+      setproducts(response)
+    } else {
+      console.log("Something went wrong")
+    }
+  }
+
   return (
-    <div>
-      <Nav></Nav>
-      <br/>
-      <div class="input-group" style={{width:'500px',marginLeft:'50px'}}>
-        <h3>Search Products :</h3>
-        <br/>
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-        <button type="button" class="btn btn-outline-primary">search</button>
-      </div>
-      <br/>
-      <div className="container marketing">
-        <div className="row">
-          <div className="col-lg-4">
-
-            <img className="img-circle" src={imag} alt="Generic placeholder image" width="140" height="140" id="101"
-            />
-
-            <h2>Cabbage</h2>
-            <p>A cabbage generally weighs between 500 and 1,000 grams (1 and 2 lb). Smooth-leafed, firm-headed green cabbages are the most common, with smooth-leafed purple cabbages and crinkle-leafed savoy cabbages of both colours being rarer. </p>
-            <p><a className="btn btn-default" href="/Productdesc" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-lg-4">
-            <img className="img-circle" src={spin} alt="Generic placeholder image" width="140" height="140" id="102"
-            />
-
-            <h2>Spinach</h2>
-            <p>It belongs to the amaranth family and is related to beets and quinoa. Whats more, its considered very healthy, as its loaded with nutrients and antioxidants.
-
-              There are many ways to prepare spinach. You can buy it canned or fresh and eat it cooked or raw. Its delicious either on its own or in other dishes.
-
-            </p>
-            <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-lg-4">
-            <img className="img-circle" src={tomato} alt="Generic placeholder image" width="140" height="140" id="103"
-            />
-
-            <h2>Tomato</h2>
-            <p>omato, (Solanum lycopersicum), flowering plant of the nightshade family (Solanaceae), cultivated extensively for its edible fruits. Labelled as a vegetable for nutritional purposes, tomatoes are a good source of vitamin C and the phytochemical lycopene. </p>
-            <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          </div>
+   
+   <div>
+    {
+        (toggle) ?
+        <>
+      <Nav/>
+      <br />
+      <div class="dropdown show">
+     <h3>Search by Category :</h3> <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Select Category
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {
+            category.map((cat) => {
+              return (
+                <Link className="nav-link" onClick={() => { showProducts(cat['id']) }} >{cat['cname']}</Link>
+              )
+            })
+          }
         </div>
       </div>
+      <br/>
+       <Dashboard1/></>:
+       
+        <div>
+          <Nav/>
+        {
+          <section style={{ backgroundColor: "#eee" }}>
+           <br/> <button className="btn btn-warning" onClick={back}>Back</button>
+            <div class="container py-5">
+              <div class="row">
+                {
+                  products.map((product) => {
+                    return (
+                      <ProductItem product={product} />
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </section>
+        }
+      </div>
+      }
     </div>
   )
 }

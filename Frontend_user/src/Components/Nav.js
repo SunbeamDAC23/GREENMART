@@ -6,9 +6,11 @@ import $ from 'jquery';
 import { Link } from "react-router-dom";
 import '../../node_modules/bootstrap/js/dist/dropdown.js'
 import Popper from 'popper.js';
-
+import { hover } from "@testing-library/user-event/dist/hover";
+import './Nav.css'
 
 function Nav(){
+
     return (
       <nav class="navbar navbar-expand-lg navbar-light" style={{backgroundColor:"lightgreen"}} >
       <div class="container-fluid"> 
@@ -59,11 +61,11 @@ function Nav(){
     {sessionStorage.getItem('firstName')} {sessionStorage.getItem('lastName')}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <Link className="nav-link" to="/myprofile" style={{color:'black'}}>My Profile</Link>
-  <Link className="nav-link" to="/ChangePassword" style={{color:'black'}}>Change Password</Link>
-  <Link className="nav-link" to="/OrderHistory" style={{color:'black'}}>Order History</Link>
-  <Link className="nav-link" to="/addAddress" style={{color:'black'}}>Add address</Link>
-  <Link className="nav-link" to="/" style={{color:'black'}}>Logout</Link>  </div>
+  <Link className="nav-link" to="/myprofile" >My Profile</Link>
+  <Link className="nav-link" to="/ChangePassword" >Change Password</Link>
+  <Link className="nav-link" to="/OrderHistory">Order History</Link>
+  <Link className="nav-link" to="/addAddress" >Add address</Link>
+  <Link className="nav-link" to="/" >Logout</Link>  </div>
 </div>
         </div>
       </div>

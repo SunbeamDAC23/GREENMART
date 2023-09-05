@@ -9,9 +9,8 @@ function AddProduct() {
     const navigate = useNavigate()
 
     const [products, setproducts] = useState([])
-
-    
-
+    sessionStorage.setItem('mod','true')
+    sessionStorage.setItem('orderId',1)   
     useEffect(() => {
         showProducts()
     }, []

@@ -42,14 +42,15 @@ function DeliveryAddress() {
                             <td><h3>State</h3></td>
                         </tr>
                         {
-                            address.map((address) => {
+                            address.map((add) => {
                                 return (
-                                    <Address address={address}/>
+                                    <Address address={add}/>
                                 )
                             })
                         }
                     </table>
                     <Link className="btn  btn-primary" to="/addAddress" style={{float:'right'}}>Add Address</Link>
+                    <div><br/><br/></div>
                 </div>
             </div>
 

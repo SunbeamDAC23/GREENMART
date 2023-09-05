@@ -6,7 +6,7 @@ import  log  from '../Utils/utils'
 export async function registerUser(firstName,lastName,email,password
     ,mobile)
 {
-    const url='http://localhost:7070/users'
+    const url='http://localhost:9090/users'
     const body={
         firstName,
         lastName,
@@ -45,7 +45,7 @@ export async function getUser()
 export async function loginuser(email,password)
 {
     debugger;
-    const url='http://localhost:7070/users/authenticate'
+    const url='http://localhost:9090/users/authenticate'
     const body={
         email,password
     }
@@ -61,16 +61,33 @@ export async function loginuser(email,password)
 }
 
 
-export async function changePassword(firstName, lastName, email, mobile, password)
+export async function getByid(Id)
 {
+    debugger;
+    const url=`http://localhost:9090/users/byId/${Id}`
+    try{
+    const response=await axios.get(url)
+    log(response.data)
+    return response.data
+    }catch(ex)
+    {
+        console.log(ex)
+        return null
+    }
+}
+
+export async function updateUser(firstName, lastName, email, mobile, password)
+{
+    debugger
     const body={
         firstName,
         lastName,
         email,
+        mobile,
         password,
-        mobile
+      
     }
-    const url=`http://localhost:7070/users/${sessionStorage.getItem('id')}`
+    const url=`http://localhost:9090/users/${sessionStorage.getItem('id')}`
     try{
         const response=await axios.put(url,body)
         log(response.data)
@@ -80,5 +97,4 @@ export async function changePassword(firstName, lastName, email, mobile, passwor
            console.log(ex)
            return null
        }
-
 }

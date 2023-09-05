@@ -35,7 +35,7 @@ function ChangePassword() {
         <td><h2>Mail:</h2></td>
         <td>greenmart@gmail.com</td>
         </tr>
-        </table> 
+        </table>
     </div>
   )
 }

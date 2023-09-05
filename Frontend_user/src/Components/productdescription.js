@@ -38,7 +38,6 @@ function ProductDesc() {
                                     <div class="col-md-6">
                                         <div class="product p-4">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <div class="d-flex align-items-center"><a className="btn btn-warning" onClick={backtopage}>Back</a></div> 
                                             </div>
                                             <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Leafy</span>
                                                 <h5 class="text-uppercase">{sessionStorage.getItem('pname')}</h5>
@@ -47,7 +46,7 @@ function ProductDesc() {
                                                 </div>
                                             </div>
                                             <p class="about">{sessionStorage.getItem('pdesc')}</p>
-                                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4" onclick={addProduct}>Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+                                            <div class="d-flex align-items-center"><a className="btn btn-warning" onClick={backtopage}>Back</a></div> 
                                         </div>
                                     </div>
                                 </div>

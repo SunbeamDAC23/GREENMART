@@ -17,6 +17,7 @@ const [password,setpassword]=useState('')
   }
 
   const Login = async () => {
+    sessionStorage.setItem('password',password)
       const response=await loginuser(email,password)
       if(response!=null && response['status']===200)
       {
@@ -57,9 +58,9 @@ const [password,setpassword]=useState('')
                     <input type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Password" style={inStyle} onChange={(e) => { setpassword(e.target.value) }}/>
                   </div>
 
-                  <button onClick={Login} class="btn btn-primary btn-md " type="submit">Login</button>
-
+                  <button onClick={Login} class="btn btn-primary btn-md " type="submit" style={{width:'-90px'}}>Login</button>
                   <div>
+                  <br/>
                     <p class="mb-0">Don't have an account? <a onClick={Signin} class="fw-bold text-body">Sign Up</a>
                     </p>
                   </div>

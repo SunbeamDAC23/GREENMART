@@ -1,10 +1,17 @@
 import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { loadOrders } from "../Services/order";
+
+
+
 function Invoice() {
   const date = new Date()
   const navigate = useNavigate()
-
+  const [product, setproduct] = useState([])
+  const [total,settotal]=useState(0)
+  const [no,setno]=useState(1)
   const goback = () => {
     sessionStorage.removeItem('line1')
     sessionStorage.removeItem('line2')
@@ -20,7 +27,26 @@ function Invoice() {
     sessionStorage.removeItem('city')
     sessionStorage.removeItem('state')
     sessionStorage.removeItem('pincode')
-    navigate('/Viewproduct')
+    sessionStorage.setItem('mod','true')
+    navigate('/payment')
+  }
+
+  useEffect(() => {
+    showOrders()
+  }, []
+  )
+ 
+
+
+  const showOrders = async () => {
+    const response = await loadOrders(sessionStorage.getItem('oId'))
+    if (response != null) {
+      setproduct(response['cart'])
+      settotal(response['total'])
+    } else {
+      console.log("Something went wrong")
+    }
+  
   }
 
   return <>
@@ -45,10 +71,9 @@ function Invoice() {
               </div>
               <div class="col-xl-4">
                 <ul class="list-unstyled">
+
                   <li class="text-muted"><i class="fas fa-circle" style={{ color: '#84B0CA' }}></i> <span
-                    class="fw-bold">ID:</span>#123-456</li>
-                  <li class="text-muted"><i class="fas fa-circle" style={{ color: '#84B0CA' }}></i> <span
-                    class="fw-bold">Creation Date: </span>{date.getDate()}/{date.getMonth()}/{date.getFullYear()}</li>
+                    class="fw-bold">Creation Date: </span>{date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</li>
                 </ul>
               </div>
             </div>
@@ -58,34 +83,25 @@ function Invoice() {
                 <thead style={{ backgroundColor: '#84B0CA' }} class="text-white">
                   <tr>
                     <th scope="col">SrNo</th>
-                    <th scope="col">Description</th>
+                    <th scope="col">Product Name</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Cabbage</td>
-                    <td>4</td>
-                    <td>200</td>
-                    <td>800</td>
+                  {
+                    product.map((order)=>{
+                     return(<tr>
+                    <th scope="row">{no}</th>
+                    <td>{order['pname']}</td>
+                    <td>{order['qty']}</td>
+                    <td><span>&#8377; </span>{order['price']}</td>
+                    <td><span>&#8377; </span>{order['total']}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Tomato</td>
-                    <td>1</td>
-                    <td>10</td>
-                    <td>10</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Consulting</td>
-                    <td>2</td>
-                    <td>300</td>
-                    <td>600</td>
-                  </tr>
+                  )
+                      })
+                  }
                 </tbody>
 
               </table>
@@ -95,11 +111,11 @@ function Invoice() {
               </div>
               <div class="col-xl-3">
                 <ul class="list-unstyled">
-                  <li class="text-muted ms-3"><span class="text-black me-4">SubTotal :</span>1110</li>
-                  <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Tax(15%) :</span>111</li>
+                  <li class="text-muted ms-3"><span class="text-black me-3">SubTotal :</span><span>&#8377; </span>{total}</li>
+                  <li class="text-muted ms-3 mt-2"><span class="text-black me-3">Delivery Charges :</span><span>&#8377; </span>100</li>
                 </ul>
                 <p class="text-black float-start"><span class="text-black me-3"> Total Amount :</span><span
-                  style={{ fontSize: '25px' }}>1221</span></p>
+                  style={{ fontSize: '25px' }}><span>&#8377; </span>{total+100}</span></p>
               </div>
             </div>
             <hr />

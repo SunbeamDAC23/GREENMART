@@ -5,7 +5,7 @@ import  log  from '../Utils/utils'
 export async function registerAddress(line1,line2,city,state,pincode,uid)
 {
   debugger;
-    const url='http://localhost:7070/address/newAddress'
+    const url='http://localhost:9090/address/newAddress'
     
     const body={
         line1,
@@ -29,7 +29,7 @@ export async function registerAddress(line1,line2,city,state,pincode,uid)
 export async function loadAddress(Id)
 {
   debugger;
-  const url=(`http://localhost:7070/address/${Id}`)
+  const url=(`http://localhost:9090/address/${Id}`)
    try{
     const response=await axios.get(url)
     return(response.data)

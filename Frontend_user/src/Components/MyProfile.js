@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../Services/user";
+import user from '../user.webp'
 
 function MyProfile() {
     const [users, setusers] = useState([])
@@ -33,10 +34,10 @@ function MyProfile() {
                         <div class="card mb-3" style={{ borderRadius: 10, backgroundColor: 'lightgreen' }} >
                             <div class="row g-0">
                                 <div class="col-md-4 gradient-custom text-center text-white">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    <img src={user}
                                         alt="Avatar" class="img-fluid my-5" style={{ width: '80px' }} />
                                     <h5 style={{ color: 'black' }}>Username</h5>
-                                    <p class="text-muted">{sessionStorage.getItem('firstName')}</p>
+                                    <p style={{color:'blue'}}>{sessionStorage.getItem('firstName')}</p>
                                     <i class="far fa-edit mb-5"></i>
                                 </div>
                                 <div class="col-md-8">
@@ -47,24 +48,24 @@ function MyProfile() {
                                             <div class="col-6 mb-3">
                                                 <h6>FirstName</h6>
 
-                                                <p class="text-muted">{sessionStorage.getItem('firstName')}</p>
+                                                <p style={{color:'blue'}}>{sessionStorage.getItem('firstName')}</p>
                                             </div>
                                             <div class="col-6 mb-3">
                                                 <h6>LastName</h6>
 
-                                                <p class="text-muted">{sessionStorage.getItem('lastName')}</p>
+                                                <p style={{color:'blue'}}>{sessionStorage.getItem('lastName')}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-1">
                                             <div class="col-6 mb-3">
                                                 <h6>Email</h6>
 
-                                                <p class="text-muted">{sessionStorage.getItem('email')}</p>
+                                                <p style={{color:'blue'}}>{sessionStorage.getItem('email')}</p>
                                             </div>
                                             <div class="col-6 mb-3">
                                                 <h6>Phone</h6>
 
-                                                <p class="text-muted">{sessionStorage.getItem('mobile')}</p>
+                                                <p style={{color:'blue'}}>{sessionStorage.getItem('mobile')}</p>
                                             </div>
                                         </div>
                                         <div class="row pt-1">
@@ -74,6 +75,7 @@ function MyProfile() {
                                             </div>
                                         </div>
                                         <div class="row pt-1">
+                                        <Link className="btn btn-primary" style={{float:'left'}} to="/editprofile">Edit</Link>
                                         <Link className="btn btn-warning" style={{float:'rigth'}} to="/SearchPage">Back</Link>
                                         </div>
                                     </div>

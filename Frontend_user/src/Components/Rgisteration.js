@@ -125,7 +125,7 @@ function Registerpre() {
             </div>
 
                         <center>
-              <button type="button" class="btn btn-primary btn-block btn-md gradient-custom-4 text-body" onClick={addUser}>Register</button>
+              <button type="button" class="btn btn-primary btn-md gradient-custom-4 text-body" onClick={addUser}>Register</button>
             </center>
 
 
