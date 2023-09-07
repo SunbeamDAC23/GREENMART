@@ -49,7 +49,6 @@ public class UserController {
 	{
 		System.out.println(dto.toString());
 		
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.addNewUser(dto));
 	}
 	
@@ -78,7 +77,11 @@ public class UserController {
 		
 	}
 	
-	
-	
+	@GetMapping("/byId/{id}")
+	public ResponseEntity<?> getByid(@PathVariable Long id) 
+	{
+		UserResponseDTO userDto=userService.findUser(id);
+	return ResponseEntity.ok(userDto);	
+	}
 
 }

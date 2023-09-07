@@ -77,4 +77,10 @@ public class UserServiceImpl implements UserService{
 		return mapper.map(user, UserResponseDTO.class);
 	}
 
+	@Override
+	public UserResponseDTO findUser(Long uid) {
+		User user=userRepo.findById(uid).orElseThrow(()->new ResourceNotFoundException("Invalid User ID"));
+		return mapper.map(user,UserResponseDTO.class);
+	}
+
 }

@@ -12,8 +12,7 @@ public interface UserService {
 	UserResponseDTO addNewUser(AddUserDTO dto);
 	UserResponseDTO updateUser(Long uid , AddUserDTO dto);
 	List<UserResponseDTO> getAllUsers();
-	
 	UserResponseDTO removeUser(Long id);
-	
 	UserResponseDTO userAuthentication(AuthRequest request);
+	UserResponseDTO findUser(Long uid);
 }

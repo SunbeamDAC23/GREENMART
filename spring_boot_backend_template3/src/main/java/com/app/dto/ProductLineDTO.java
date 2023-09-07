@@ -1,8 +1,10 @@
 package com.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class ProductLineDTO {
 	
+	@JsonAlias("proId")
 	private Long pid;
 	
 	private double qty;
@@ -12,7 +14,7 @@ public class ProductLineDTO {
 	}
 
 	public void setPid(Long pid) {
-		this.pid = pid;
+		this.pid =pid;
 	}
 
 	public double getQty() {

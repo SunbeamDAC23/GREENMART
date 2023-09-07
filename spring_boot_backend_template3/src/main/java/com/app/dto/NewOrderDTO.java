@@ -1,6 +1,7 @@
 package com.app.dto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class NewOrderDTO {
@@ -9,13 +10,23 @@ public class NewOrderDTO {
 	
 	private Long addressId;
 
-	private LocalDate odate;
-	
 	private String status;
 	
-	private List<ProductLineDTO> orderItems;
+	private Long pId;
+	
+private List<ProductLineDTO> orderItems;
 	
 	private double orderTotal;
+	
+	
+	
+	public Long getpId() {
+		return pId;
+	}
+
+	public void setpId(Long pId) {
+		this.pId = pId;
+	}
 	
 	public Long getAddressId() {
 		return addressId;
@@ -30,14 +41,6 @@ public class NewOrderDTO {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-	public LocalDate getOdate() {
-		return odate;
-	}
-
-	public void setOdate(LocalDate odate) {
-		this.odate = odate;
 	}
 
 	public String getStatus() {
@@ -66,7 +69,7 @@ public class NewOrderDTO {
 
 	@Override
 	public String toString() {
-		return "NewOrderDTO [userId=" + userId + ", addressId=" + addressId + ", odate=" + odate + ", status=" + status
+		return "NewOrderDTO [userId=" + userId + ", addressId=" + addressId + ", status=" + status
 				+ ", orderItems=" + orderItems + ", orderTotal=" + orderTotal + "]";
 	}
 

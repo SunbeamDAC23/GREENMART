@@ -1,24 +1,33 @@
 package com.app.service;
 
+import java.time.LocalDate;
+
+
 import java.util.ArrayList;
+
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.app.customExceptions.ResourceNotFoundException;
+import com.app.dto.CartDTO;
+import com.app.dto.InvoiceDTO;
 import com.app.dto.NewOrderDTO;
 import com.app.dto.OrderResponseDTO;
 import com.app.dto.ProductLineDTO;
+import com.app.dto.UserResponseDTO;
 import com.app.pojos.Order;
 import com.app.pojos.Product;
 import com.app.pojos.ProductLine;
 import com.app.pojos.User;
 import com.app.repository.AddressRepository;
 import com.app.repository.OrderRepository;
+import com.app.repository.ProductLineRepository;
 import com.app.repository.ProductRepository;
 import com.app.repository.UserRepository;
 
@@ -34,6 +43,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private ProductRepository productRepo;
+	
+	@Autowired
+	private ProductLineRepository productlineRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -90,7 +102,9 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public OrderResponseDTO placeNewOrder(NewOrderDTO dto) {
-		
+		List<ProductLineDTO> list=dto.getOrderItems();
+	      list.get(0).setPid(dto.getpId());
+		//------------------------------------------------------
 		Order newOrder=new Order();
 		List<ProductLineDTO>itemsDto= dto.getOrderItems();
 		for(ProductLineDTO itemDto : itemsDto)
@@ -103,7 +117,7 @@ public class OrderServiceImpl implements OrderService{
 			item.setQty(itemDto.getQty());
 			newOrder.addProductLine(item);	
 		}
-		newOrder.setOdate(dto.getOdate());
+		newOrder.setOdate(LocalDate.now());
 		newOrder.setOrderTotal(dto.getOrderTotal());
 		newOrder.setStatus(dto.getStatus());
 		newOrder.setAddress(addressRepo.findById(dto.getAddressId()).orElseThrow(()->new ResourceNotFoundException("")));
@@ -124,6 +138,88 @@ public class OrderServiceImpl implements OrderService{
 		orderResponse.setAddress(newOrder.getAddress());
 		return orderResponse;
 	}
+
+	@Override
+	public OrderResponseDTO updateList(Long id, ProductLineDTO proline) {
+		Order orderentity=orderRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Invalid order ID"));
+		ProductLine item = new ProductLine();
+		item.setQty(proline.getQty());
+		Long productId=proline.getPid(); 
+ 		Product p = productRepo.findById(productId).orElseThrow(()->new ResourceNotFoundException("Invalid Product"));
+	    item.setProduct(p);
+ 		orderentity.addProductLine(item);
+ 		return mapper.map(orderentity, OrderResponseDTO.class);
+	}
+
+	@Override
+	public InvoiceDTO getCart(Long uid) {
+		Order order=orderRepo.findById(uid).orElseThrow(()->new ResourceNotFoundException("Invalid order ID"));
+		List<CartDTO> cartList=new ArrayList<>();
+		List<ProductLine> proList=new ArrayList<>();
+		List<Product> productlist=new ArrayList<>();
+		List<CartDTO> cart=new ArrayList<>();
+		InvoiceDTO invoice=new InvoiceDTO();
+		double total=0;
+		proList=order.getProductLineItems();	
+		for(ProductLine line :proList)
+		{
+			CartDTO Cart=new CartDTO();
+			Cart.setLineId(line.getId());
+			Cart.setQty(line.getQty());
+			Product pro=new Product();
+			pro=line.getProduct();
+			Cart.setTotal(pro.getPrice()*line.getQty());
+			Cart.setProductId(pro.getId());
+			Cart.setPname(pro.getPname());
+			Cart.setPrice(pro.getPrice());
+			Cart.setAvlQty(pro.getAvlQty());
+			cart.add(Cart);
+		}
+		for(CartDTO c:cart)
+		{
+			total=total+c.getTotal();
+		}
+		invoice.setTotal(total);
+		invoice.setCart(cart);
+		System.out.println(productlist);
+	return invoice;
+	}
+
+	@Override
+	public ProductLine updateqty(Long id, ProductLineDTO proline) {
+		ProductLine item =productlineRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Invalid line ID"));
+		item.setQty(proline.getQty());
+		productlineRepo.save(item);
+ 		return item;
+	}
+
+	@Override
+	public List<CartDTO> getOrderHistory(Long uid) {
+		List<Order> allOrders=orderRepo.findByUserId(uid);
+		List<List<ProductLine>> prolistlist=new ArrayList<>();
+		List<ProductLine> proList=new ArrayList<>();
+		List<Product> product=new ArrayList<>();
+		List<CartDTO> Cart=new ArrayList<>();
+		for(Order order: allOrders)
+		{      
+		    for(ProductLine list:order.getProductLineItems())
+		    {
+		    	CartDTO cart=new CartDTO();
+		    	cart.setQty(list.getQty());
+		    	cart.setPname(list.getProduct().getPname());
+		    	cart.setPrice(list.getProduct().getPrice());
+		    	Cart.add(cart);
+		    }
+		}
+		
+		return Cart;
+	}
+
+	@Override
+	public void removeOrder(Long lid) {
+		productlineRepo.deleteById(lid);
+	}
+
 	
 
 }

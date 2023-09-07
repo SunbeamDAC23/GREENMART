@@ -64,6 +64,7 @@ public class ProductServiceImpl implements ProductService{
 		{
 			ProductDTO pro = new ProductDTO();
 			mapper.map(product, pro);
+			pro.setCategory(product.getCategory().getCname());
 			productsToReturn.add(pro);	
 		}
 		return productsToReturn;
@@ -128,4 +129,31 @@ public class ProductServiceImpl implements ProductService{
 	
 	}
 
+	@Override
+	public List<ProductDTO> findByCat(Long cid) {
+		List<Product> products=productRepo.findBycategory_id(cid);
+		List<ProductDTO> productsToReturn = new ArrayList<>();
+		for(Product product : products)
+		{
+			ProductDTO pro = new ProductDTO();
+			mapper.map(product, pro);
+			pro.setCategory(product.getCategory().getCname());
+			productsToReturn.add(pro);	
+		}
+		return productsToReturn;
+	}
+
+	@Override
+	public List<Category> getAllCategory() {
+		List<Category> list= catRepo.findAll();
+		return list;
+	}
+
+	
+	@Override
+	public ProductDTO getSingleProduct(Long pid) {
+		Product product = productRepo.findById(pid).orElseThrow(()->new ResourceNotFoundException("Resource Not Found"));
+		return mapper.map(product, ProductDTO.class);
+	}
+	
 }

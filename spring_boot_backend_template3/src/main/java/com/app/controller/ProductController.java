@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.app.dto.ProductDTO;
+import com.app.pojos.Category;
 import com.app.service.ProductService;
 
 @RestController
@@ -54,10 +55,35 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productService.uploadImage(pId, imageFile));
 	}
 	
+	@GetMapping("/withcat/{cId}")
+	public ResponseEntity<?> getBycat(@PathVariable Long cId)
+	{
+		List<ProductDTO> allProducts = productService.findByCat(cId);
+		return ResponseEntity.ok(allProducts);
+	}
+	
+	@GetMapping("/getCat")
+	public ResponseEntity<?> getAllcat()
+	{
+		List<Category> allcat = productService.getAllCategory();
+		return ResponseEntity.ok(allcat);
+	}
 	
 	
 	
+	@GetMapping(value="/images/{pId}")
+	public ResponseEntity<?> serveEmpImage(@PathVariable Long pId) throws IOException {
+		System.out.println("in download img " + pId);
+		return ResponseEntity.ok(productService.downloadImage(pId));
+	}
+	
+	@GetMapping(value = "/single/{pid}")
+	public ResponseEntity<?> getSingleProduct(@PathVariable Long pid)
+	{
+		ProductDTO Products = productService.getSingleProduct(pid);
+		return ResponseEntity.ok(Products);
+	}
 	
 	
-
+	
 }

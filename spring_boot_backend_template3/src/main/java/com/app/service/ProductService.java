@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ProductDTO;
+import com.app.pojos.Category;
 import com.app.pojos.Product;
 
 public interface ProductService {
@@ -19,4 +20,8 @@ public interface ProductService {
 	
 	ProductDTO updateProduct(Long pid, ProductDTO dto);
 
+	List<ProductDTO> findByCat(Long cid);
+	
+	List<Category> getAllCategory();
+	ProductDTO getSingleProduct(Long pid);
 }
