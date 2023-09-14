@@ -1,0 +1,53 @@
+    /* *{
+        height: 100vh;
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    } */
+.vertical{
+ align-self:left;
+ margin-left: 2px;
+ border-color: black;
+ border-style: solid;
+ width: 50px;
+ height: auto;
+}
+.mydiv{
+   
+    height: 100px;
+    width: 100%;
+    background-color: aquamarine;
+    text-align: center;
+    
+}
+table{
+    border-color: black;
+    border-width: 1;
+    left: 500;
+
+}
+.table-div{
+    background-color: #27ae60;
+    display: flex;
+    border-color: black;
+    
+}
+.bg-color{
+    text-align: center;
+background-color:#2ecc71;
+}
+.myTable{
+    margin: 20px;
+    width: 80%;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
+.bg-img{
+background-image: url("http://localhost:3000/img/vegetables.jpg");
+height: 100vh;
+width: 100vw;
+background-size: cover;
+overflow: hidden;
+}

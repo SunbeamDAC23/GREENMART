@@ -1,0 +1,124 @@
+package com.app.pojos;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "order_tb")
+public class Order extends BaseEntity{
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@Column(name = "order_date")
+	private LocalDate odate;
+	
+	@Column
+	private double orderTotal;
+	
+	@OneToMany(mappedBy = "order", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<ProductLine> productLineItems = new ArrayList<>();
+	
+	
+	@Column(name = "status")
+	private String status;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="address_id")
+	private Address address;
+	
+	
+	
+	
+	public Order(User user, LocalDate odate, double orderTotal, List<ProductLine> productLineItems, String status,
+			Address address) {
+		this.user = user;
+		this.odate = odate;
+		this.orderTotal = orderTotal;
+		this.productLineItems = productLineItems;
+		this.status = status;
+		this.address = address;
+	}
+	public Order() {
+		
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public LocalDate getOdate() {
+		return odate;
+	}
+	public void setOdate(LocalDate odate) {
+		this.odate = odate;
+	}
+	public double getOrderTotal() {
+		return orderTotal;
+	}
+	public void setOrderTotal(double orderTotal) {
+		this.orderTotal = orderTotal;
+	}
+	public List<ProductLine> getProductLineItems() {
+		return productLineItems;
+	}
+	public void setProductLineItems(List<ProductLine> productLineItems) {
+		this.productLineItems = productLineItems;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	@Override
+	public String toString() {
+		return "Order [user=" + user + ", odate=" + odate + ", orderTotal=" + orderTotal + ", productLineItems="
+				+ productLineItems + ", status=" + status + ", address=" + address + "]";
+	}
+	public void addProductLine(ProductLine a) {
+		productLineItems.add(a);
+		a.setOrder(this);
+	}
+	public void removeProductLine(ProductLine a) {
+		productLineItems.remove(a);
+		a.setOrder(null);
+		
+	}
+	
+	
+	
+	
+
+}

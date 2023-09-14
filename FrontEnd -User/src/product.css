@@ -1,0 +1,50 @@
+.my-div {
+    display: flex;
+    background-color: #ffcccc;
+    border: black;
+    justify-content: space-between;
+    width: 100vw;
+    flex-wrap: wrap;
+    padding: 2px;
+    height: 100vh;
+  }
+  
+  .inner-div {
+    border: 1px solid black;
+    flex-basis: 18%;
+    padding: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .bg-img {
+    background-image: url("http://localhost:3000/img/vegetables.jpg");
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    overflow: hidden;
+  }
+  
+  body {
+    background-color: #ffffff;
+  }
+  
+  /* Media queries for responsive styles */
+  
+  /* Apply these styles when the screen width is 768 pixels or less */
+  @media (max-width: 768px) {
+    .my-div {
+        display: flex;
+      flex-direction: column; /* Stack inner divs vertically */
+      align-items: center;
+    }
+    
+    .inner-div {
+      flex-basis: 100%; /* Make inner divs occupy full width */
+      margin-bottom: 12px; /* Add spacing between inner divs */
+    }
+    
+    .bg-img {
+      height: 50vh; /* Reduce height of background image */
+    }
+  }
+  
